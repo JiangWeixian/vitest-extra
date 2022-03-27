@@ -7,7 +7,7 @@ import path from 'path'
 import { isEmpty } from 'lodash-es'
 
 export const glob = (cwd: string) => {
-  return globbySync(['**'], { cwd, gitignore: true, dot: true })
+  return globbySync(['**'], { cwd, gitignore: true, dot: true, ignore: ['.git'] })
 }
 
 /**

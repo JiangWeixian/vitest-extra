@@ -1,4 +1,4 @@
-import { toMatchDir } from '../src/to-match-dir'
+import { toMatchDir, glob } from '../src/to-match-dir'
 
 import path from 'path'
 
@@ -8,6 +8,13 @@ const f = (type: string, received = true) =>
 const snapshot = (type: string) => path.resolve(process.cwd(), './test/__dir_snapshots__', type)
 
 expect.extend({ toMatchDir })
+
+describe('glob', () => {
+  it('should include dot files', async () => {
+    const files = glob(process.cwd())
+    expect(files.some((v) => v.includes('.github'))).toBe(true)
+  })
+})
 
 describe('to match dir', () => {
   it('compare same dirs', () => {
