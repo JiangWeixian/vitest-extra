@@ -33,7 +33,7 @@
     "test": "vitest",
     "pretest": "pnpm run build",
     "ci:version": "pnpx changeset version",
-    "ci:publish": "pnpx changeset publish",
+    "ci:publish": "pnpm run build && pnpx changeset publish",
     "ci:snapshot": "pnpx changeset version --snapshot beta",
     "ci:prerelease": "pnpm run build && pnpx changeset publish --tag beta",
     "lint:fix": "eslint . --fix"
