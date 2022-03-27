@@ -31,6 +31,7 @@
     "build": "rimraf dist && rollup -c --silent",
     "dev": "rollup -c -w --silent",
     "test": "vitest",
+    "prepare": "husky install",
     "pretest": "pnpm run build",
     "ci:version": "pnpx changeset version",
     "ci:publish": "pnpm run build && pnpx changeset publish",
