@@ -44,9 +44,6 @@
       "eslint --fix"
     ]
   },
-  "bundledDependencies": [
-    "lodash-es"
-  ],
   "peerDependencies": {
     "vitest": ">=0.7.7"
   },
