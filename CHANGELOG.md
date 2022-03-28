@@ -1,5 +1,11 @@
 # vitest-extra
 
+## 0.0.3
+
+### Patch Changes
+
+- 14e8df7: rm bundledepencies
+
 ## 0.0.2
 
 ### Patch Changes
