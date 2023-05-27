@@ -1,5 +1,11 @@
 # vitest-extra
 
+## 0.0.4
+
+### Patch Changes
+
+- 71266c4: toMatchDir should failed when files count and list not match
+
 ## 0.0.3
 
 ### Patch Changes
