@@ -59,7 +59,7 @@ export const toMatchFileContent: RawMatchFn = function (
     // diff exit - pass: false
     // diff non-exit - pass: true
     return {
-      pass: !!diff,
+      pass: !diff,
       message: () => `\n${diff}`,
     }
   }

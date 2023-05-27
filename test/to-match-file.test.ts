@@ -8,7 +8,7 @@ const f = (type: string) => path.resolve(process.cwd(), './test/fixtures/to-matc
 
 const snapshot = (type: string) => path.resolve(process.cwd(), './test/__file_snapshots__', type)
 
-describe('to match file', () => {
+describe('is', () => {
   it('compare same file', () => {
     expect(f('a.ts')).toMatchFile(f('a-clone.ts'))
   })
