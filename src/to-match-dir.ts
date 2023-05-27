@@ -1,5 +1,5 @@
 import { RawMatchFn } from './types'
-import { getDirname } from './utils'
+import { getDirname, debug } from './utils'
 
 import fs from 'fs-extra'
 import { globbySync } from 'globby'
@@ -10,12 +10,13 @@ export const glob = (cwd: string) => {
   return globbySync(['**'], { cwd, gitignore: true, dot: true, ignore: ['.git'] })
 }
 
+// NOTE: if use it with `.not`, pass: false mean case success
 /**
  * @description compare two dirs files count, and file content
  * @example expect(dirpath).toMatchDir(dirpath)
  */
 export const toMatchDir: RawMatchFn = function (received: string, expected?: string) {
-  const { isNot } = this
+  const isNot = this.isNot ?? false
 
   const dirname = getDirname(
     {
@@ -25,6 +26,8 @@ export const toMatchDir: RawMatchFn = function (received: string, expected?: str
     },
     expected,
   )
+  debug.toMatchDir('case `%s` options: %o', this.currentTestName, { isNot })
+  debug.toMatchDir('snapshot dirname %s', dirname)
 
   if (!fs.existsSync(received)) {
     return {
@@ -34,6 +37,8 @@ export const toMatchDir: RawMatchFn = function (received: string, expected?: str
   }
 
   if (!dirname || !fs.existsSync(dirname)) {
+    // If run at first time, snapshot dir is empty
+    // Copy received to target
     if (!isNot) {
       fs.copySync(received, dirname)
       return {
@@ -58,15 +63,16 @@ export const toMatchDir: RawMatchFn = function (received: string, expected?: str
   const fileListDiff = this.utils.diff(receivedFilesSnapShot, expectedFilesSnapShot)
 
   if (fileListDiff) {
+    // Should pass: false if call expect with .not.toMatchDir()
     return {
-      pass: !isNot,
+      pass: false,
       message: () => fileListDiff,
     }
   }
 
   let matchFiles: string[] = []
 
-  // filecontent should be equal file by file
+  // check (input & output) file list snapshot
   if (!isNot) {
     receivedFiles.some((file) => {
       const receivedFilePath = path.resolve(received, file)
@@ -82,7 +88,7 @@ export const toMatchDir: RawMatchFn = function (received: string, expected?: str
     })
     return {
       pass: isEmpty(matchFiles),
-      message: () => `${matchFiles[0]} match ${matchFiles[1]}`,
+      message: () => `${matchFiles[0]} not match ${matchFiles[1]}`,
     }
   }
 

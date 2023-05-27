@@ -13,7 +13,8 @@ export const toMatchFileContent: RawMatchFn = function (
   expected?: string,
   options: Options = {},
 ) {
-  const { utils, isNot } = this
+  const { utils } = this
+  const isNot = this.isNot ?? false
 
   const filename = getFilename(
     {
@@ -48,13 +49,17 @@ export const toMatchFileContent: RawMatchFn = function (
   })
 
   if (isNot) {
+    // diff exit - pass: false
+    // diff non-exit - pass: true
     return {
       pass: !diff,
       message: () => `Received is matched ${filename}`,
     }
   } else {
+    // diff exit - pass: false
+    // diff non-exit - pass: true
     return {
-      pass: !diff,
+      pass: !!diff,
       message: () => `\n${diff}`,
     }
   }

@@ -12,7 +12,7 @@ const snapshot = (type: string) => path.resolve(process.cwd(), './test/__file_sn
 
 const content = fs.readFileSync(f('a.ts')).toString()
 
-describe('to match file content', () => {
+describe('is', () => {
   it('compare same file', () => {
     expect(content).toMatchFileContent(f('input.ts'))
   })
