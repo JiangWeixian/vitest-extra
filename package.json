@@ -1,6 +1,6 @@
 {
   "name": "vitest-extra",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "license": "MIT",
   "packageManager": "pnpm@10.15.0",
   "homepage": "https://github.com/JiangWeixian/vitest-extra#readme",
