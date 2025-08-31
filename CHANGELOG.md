@@ -1,5 +1,15 @@
 # vitest-extra
 
+## 0.1.0
+
+### Minor Changes
+
+- 8a200d8: upgrade node20 and pnpm10
+
+### Patch Changes
+
+- 8a200d8: display diff string when file not match during matchdir
+
 ## 0.0.4
 
 ### Patch Changes
