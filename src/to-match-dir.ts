@@ -74,6 +74,7 @@ export const toMatchDir: RawMatchFn = function (received: string, expected?: str
 
   // check (input & output) file list snapshot
   if (!isNot) {
+    let fileDiff = ''
     receivedFiles.some((file) => {
       const receivedFilePath = path.resolve(received, file)
       const expectedFilePath = path.resolve(dirname, file)
@@ -83,12 +84,13 @@ export const toMatchDir: RawMatchFn = function (received: string, expected?: str
       )
       if (isDifferent) {
         matchFiles = [receivedFilePath, expectedFilePath]
+        fileDiff = isDifferent
       }
       return isDifferent
     })
     return {
       pass: isEmpty(matchFiles),
-      message: () => `${matchFiles[0]} not match ${matchFiles[1]}`,
+      message: () => `${matchFiles[0]} not match ${matchFiles[1]}\n\n${fileDiff}`,
     }
   }
 
